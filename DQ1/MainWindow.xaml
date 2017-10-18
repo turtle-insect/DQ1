@@ -1,0 +1,140 @@
+﻿<Window x:Class="DQ1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DQ1"
+        mc:Ignorable="d"
+        Title="DQ1 セーブデータ改造(Nintendo 3DS)" Height="650" Width="800"
+        WindowStartupLocation="CenterScreen"
+        AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver">
+    <Grid>
+        <Grid.Resources>
+            <local:ItemConverter x:Key="ItemConverter"/>
+        </Grid.Resources>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="ファイル(_F)">
+                    <MenuItem Header="開く(_O)" Click="MenuItemFileOpen_Click"/>
+                    <MenuItem Header="強制的に開く(_R)" Click="MenuItemFileOpenForce_Click"/>
+                    <MenuItem Header="上書き保存(_S)" Click="MenuItemFileSave_Click"/>
+                    <MenuItem Header="名前を付けて保存(_S)" Click="MenuItemFileSaveAs_Click"/>
+                    <Separator/>
+                    <MenuItem Header="終了(_X)" Click="MenuItemExit_Click"/>
+                </MenuItem>
+                <MenuItem Header="情報(_A)" Click="MenuItemAbout_Click"/>
+            </Menu>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Width="32" Height="32" Click="ToolBarFileOpen_Click" ToolTip="開く">
+                    <Image Source="{StaticResource Open}"/>
+                </Button>
+                <Button Width="32" Height="32" Click="ToolBarFileSave_Click" ToolTip="保存">
+                    <Image Source="{StaticResource Save}"/>
+                </Button>
+                <ComboBox SelectedIndex="0" SelectionChanged="ToolBarAdventure_SelectionChanged">
+                    <ComboBoxItem Content="ぼうけんのしょ1"/>
+                    <ComboBoxItem Content="ぼうけんのしょ2"/>
+                    <ComboBoxItem Content="ぼうけんのしょ3"/>
+                </ComboBox>
+            </ToolBar>
+            <TabControl>
+                <TabItem Header="基本設定">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="14*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="ゴールド"/>
+                            <TextBox Grid.Column="1" Text="{Binding Gold, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="主人公">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="名前"/>
+                            <TextBox Grid.Column="1" Text="{Binding Hero.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="1" Content="レベル"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Hero.Lv, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="2" Content="HP"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Hero.HP, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="3" Content="MP"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Hero.MP, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="4" Content="ちから"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Hero.Power, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="5" Content="すばやさ"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Hero.Speed, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="6" Content="みのまもり"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Hero.Protect, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="7" Content="最大HP"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Hero.MaxHP, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="8" Content="最大MP"/>
+                            <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Hero.MaxMP, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="9" Content="こうげき力"/>
+                            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Hero.Attack, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="10" Content="しゅび力"/>
+                            <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Hero.Defense, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="11" Content="Exp"/>
+                            <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Hero.Exp, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                        <DockPanel Grid.Column="1">
+                            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                                <Label Content="かぎ" Width="50"/>
+                                <TextBox Text="{Binding Hero.Key, UpdateSourceTrigger=PropertyChanged}" Width="30"/>
+                                <Label Content="個"/>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                                <Label Content="やくそう" Width="50"/>
+                                <TextBox Text="{Binding Hero.Plant, UpdateSourceTrigger=PropertyChanged}" Width="30"/>
+                                <Label Content="個"/>
+                            </StackPanel>
+                            <ListBox ItemsSource="{Binding Hero.Items}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content=" ... " Click="ButtonCharactorItemChange_Click"/>
+                                            <CheckBox IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
+                                            <Label Content="{Binding ID, Converter={StaticResource ItemConverter}}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>
