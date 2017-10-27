@@ -47,6 +47,7 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
+                                <RowDefinition/>
                                 <RowDefinition Height="14*"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -55,6 +56,8 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="ゴールド"/>
                             <TextBox Grid.Column="1" Text="{Binding Gold, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Grid.Row="1" Content="ローラ姫救出"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Princess}"/>
                         </Grid>
                     </Grid>
                 </TabItem>
